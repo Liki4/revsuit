@@ -10,15 +10,12 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://localhost:10000',
-                pathRewrite: {
-                    '^/api': '/revsuit/api'
-                }
+                target: 'http://127.0.0.1:10000/revsuit/',
             }
         },
     },
     productionSourceMap: false,
     runtimeCompiler: true,
     filenameHashing: false,
-    publicPath: '/revsuit/admin/',
+    publicPath: '',
 }

@@ -12,12 +12,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/li4n0/revsuit/internal/recycler"
+	"github.com/li4n0/revsuit/internal/update"
 	log "unknwon.dev/clog/v2"
 )
 
 func (revsuit *Revsuit) auth(c *gin.Context) {
 	c.SetSameSite(http.SameSiteLaxMode)
-	c.SetCookie("token", c.Request.Header["Token"][0], 0, revsuit.config.AdminPathPrefix, "", false, true)
+	c.SetCookie("token", c.Request.Header.Get("Token"), 0, revsuit.config.AdminPathPrefix, "", false, true)
 	c.String(200, "pong")
 }
 
@@ -87,4 +88,43 @@ func version(c *gin.Context) {
 		"error":  nil,
 		"result": VERSION,
 	})
+}
+
+func (revsuit *Revsuit) getUpgrade(c *gin.Context) {
+	if !revsuit.config.CheckUpgrade {
+		c.JSON(200, gin.H{
+			"status": "succeed",
+			"error":  nil,
+			"result": gin.H{
+				"upgradeable": false,
+				"message":     "config of check upgrade is false",
+			},
+		})
+		return
+	}
+	if upgradeable, release, err := update.CheckUpgrade(VERSION); err == nil && upgradeable {
+		c.JSON(200, gin.H{
+			"status": "succeed",
+			"error":  nil,
+			"result": gin.H{
+				"upgradeable": true,
+				"version":     release.Version,
+				"release":     release.URL,
+			},
+		})
+	} else {
+		message := VERSION + " is the latest"
+		if err != nil {
+			message = err.Error()
+		}
+
+		c.JSON(200, gin.H{
+			"status": "succeed",
+			"error":  nil,
+			"result": gin.H{
+				"upgradeable": false,
+				"message":     message,
+			},
+		})
+	}
 }

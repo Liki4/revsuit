@@ -26,11 +26,16 @@ Powerful:
 
 ### Installation and Configuration
 
-Download the latest release firstly. For the time being, only the binary for amd64 architecture is available for
-download, if you need to use it in other architectures, you can compile it yourself.
+Download the latest release directly or build by following steps:
+
+```bash
+git clone https://github.com/Li4n0/revsuit.git
+cd revsuit/frontend && yarn install && yarn build
+cd ../ && go build ./cmd/revsuit/revsuit.go
+```
 
 RevSuit will generate default configuration file on first run. Modify the configuration file according to your needs,
-then re-run.  A detailed description of the configuration file can be found at: [Configuration Notes](./CONFIG.md)
+then re-run. A detailed description of the configuration file can be found at: [Configuration Notes](./CONFIG.md)
 
 ### Run
 
@@ -152,6 +157,11 @@ example.
 
 As shown above, RevSuit supports multiple clients, and each client **in the connected state** receives a push of `flag`,
 so distributed scanning can be supported.
+
+If you don't want every client to receive all `flag` pushes, you can use the `Flag-Filter` request header when creating an sse connection to set the format(regular expressions) of the `flag` you want that client to receive:
+
+![img.png](./images/flag-filter.gif)
+
 
 #### Temporary storage queue
 

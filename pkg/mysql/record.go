@@ -23,7 +23,7 @@ type Record struct {
 	Schema        string           `gorm:"index" form:"schema" json:"schema" notice:"schema"`
 	ClientOS      string           `gorm:"index" form:"client_os" json:"client_os" notice:"client_os"`
 	LoadLocalData bool             `gorm:"index" form:"load_local_data" json:"load_local_data" notice:"load_local_data"`
-	Files         []file.MySQLFile `form:"-" json:"files" notice:"-"`
+	Files         []file.MySQLFile `gorm:"foreignKey:RecordID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" form:"-" json:"files" notice:"-" `
 	Rule          Rule             `gorm:"foreignKey:RuleName;references:Name;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" form:"-" json:"-" notice:"-"`
 }
 
@@ -51,6 +51,13 @@ func newRecord(rule *Rule, flag, username, schema, clientName, clientOS, remoteI
 		Files:         files,
 		Rule:          *rule,
 	}
+
+	// sqlite db-level lock to prevent too much write operation lead to error of `database is locked` #54
+	if database.Driver == database.Sqlite {
+		database.Locker.Lock()
+		defer database.Locker.Unlock()
+	}
+
 	return r, database.DB.Create(r).Error
 }
 

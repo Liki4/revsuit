@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.1](https://github.com/Li4n0/revsuit/compare/v0.7.0...v0.7.1) (2023-06-01)
+
+
+### Bug Fixes
+
+* fix the error that the maximum length of http rule response body is 191 when using mysql ([bf8a43f](https://github.com/Li4n0/revsuit/commit/bf8a43fa875327c3191499a214c420bfa78334d0))
+
+## [0.7.0](https://github.com/Li4n0/revsuit/compare/v0.6.0...v0.7.0) (2023-05-23)
+
+
+### Features
+
+* add `value` field to the dns log ([#67](https://github.com/Li4n0/revsuit/issues/67)) ([223c14a](https://github.com/Li4n0/revsuit/commit/223c14ab33757e06b0d8177091982582e08e70c4))
+
+## [0.6.0](https://github.com/Li4n0/revsuit/compare/v0.5.2...v0.6.0) (2023-03-24)
+
+
+### Features
+
+* support for using `Flag-Filter` request headers to filter the flags that the client expects to receive ([#64](https://github.com/Li4n0/revsuit/issues/64)) ([b33de11](https://github.com/Li4n0/revsuit/commit/b33de11ba8f126b03a45ad15cae69331ad59b865)) (Thanks to @whwlsfb) 
+
+
+### Bug Fixes
+
+* fix static resource loading failure after modifying `admin_path_prefix` ([b76757d](https://github.com/Li4n0/revsuit/commit/b76757da331b56f240ec2a0c69d479f3184bc4c2)), closes [#63](https://github.com/Li4n0/revsuit/issues/63)
+
+### [0.5.2](https://github.com/Li4n0/revsuit/compare/v0.5.1...v0.5.2) (2022-11-16)
+
+
+### Bug Fixes
+
+* fix bug that the files associated with records still exist after deleting mysql and ftp records ([5e80591](https://github.com/Li4n0/revsuit/commit/5e80591c856a63c851ba5e17812af89373d76cf5))
+* fix panic when update config ([#62](https://github.com/Li4n0/revsuit/issues/62)) ([48f55c5](https://github.com/Li4n0/revsuit/commit/48f55c53273fcea579c9fdfaf2939c90df3588b1))
+
+### [0.5.1](https://github.com/Li4n0/revsuit/compare/v0.5.0...v0.5.1) (2022-09-13)
+
+
+### Bug Fixes
+
+* fix the bug that authentication always fails after token change ([#59](https://github.com/Li4n0/revsuit/issues/59)) ([3fa2cae](https://github.com/Li4n0/revsuit/commit/3fa2cae86260d39fa2ffd43d59b2754327f6169a))
+* fix the error of `database is locked` when use sqlite ([#60](https://github.com/Li4n0/revsuit/issues/60)) ([d29b767](https://github.com/Li4n0/revsuit/commit/d29b767d9cb2b70f365d0830c4bbeaae09524a5a))
+
+## [0.5.0](https://github.com/Li4n0/revsuit/compare/v0.4.0...v0.5.0) (2022-01-16)
+
+
+### Features
+
+* **build:** replace sqlite driver with which does not depend cgo ([#52](https://github.com/Li4n0/revsuit/issues/52)) ([82a2023](https://github.com/Li4n0/revsuit/commit/82a20236e1b1a092277b645554a38513e3bb4087))
+* **dns:** support use multiple root domains ([#51](https://github.com/Li4n0/revsuit/issues/51)) ([913e0f7](https://github.com/Li4n0/revsuit/commit/913e0f78db380cb1beeb88b57dc30f47e7c26c1c))
+* **ldap:** add ldap protocol support ([#50](https://github.com/Li4n0/revsuit/issues/50)) ([fc505b0](https://github.com/Li4n0/revsuit/commit/fc505b0733a8375d29b910aa897c6e0b642ab34b))
+* support auto check upgrade ([#53](https://github.com/Li4n0/revsuit/issues/53)) ([f6afe0f](https://github.com/Li4n0/revsuit/commit/f6afe0fa12188f17b74548129035f7b89a149660))
+
+
+### Bug Fixes
+
+* **settings:** fix the bug of update rmi & mysql addr settings not working ([#49](https://github.com/Li4n0/revsuit/issues/49)) ([06ae3d0](https://github.com/Li4n0/revsuit/commit/06ae3d0555eff3bf2d6a53b2c405d1dd50beea87))
+
 ## [0.4.0](https://github.com/Li4n0/revsuit/compare/v0.3.0...v0.4.0) (2021-12-26)
 
 

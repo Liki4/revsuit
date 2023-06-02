@@ -24,7 +24,7 @@ type Record struct {
 	Path     string        `form:"path" json:"path"`
 	Method   Method        `form:"method" json:"method"`
 	Status   Status        `form:"status" json:"status"`
-	File     *file.FTPFile `form:"file" json:"file" notice:"-"`
+	File     *file.FTPFile `gorm:"foreignKey:RecordID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" form:"file" json:"file" notice:"-"`
 	Rule     Rule          `gorm:"foreignKey:RuleName;references:Name;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" form:"-" json:"-" notice:"-"`
 }
 
@@ -52,6 +52,13 @@ func NewRecord(rule *Rule, flag, user, password, method, path, ip, area string, 
 		File:     file,
 		Rule:     *rule,
 	}
+
+	// sqlite db-level lock to prevent too much write operation lead to error of `database is locked` #54
+	if database.Driver == database.Sqlite {
+		database.Locker.Lock()
+		defer database.Locker.Unlock()
+	}
+
 	return r, database.DB.Create(r).Error
 }
 
